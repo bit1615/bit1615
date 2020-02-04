@@ -1,0 +1,22 @@
+import requests
+import pandas
+from bs4 import BeautifulSoup as bs
+from tqdm import tqdm_notebook as tn
+
+for k in range(1971,2023):
+    url = 'https://namu.wiki/w/%EB%B6%84%EB%A5%98:{}%EB%85%84%20%EA%B2%8C%EC%9E%84'.format(k)
+    resp = requests.get(url)
+    cont = resp.content
+    soup = bs(cont, 'html.parser')
+    try:
+        get_name = soup.select('#app > div > div:nth-child(2) > article > div:nth-child(5) > div:nth-child(2) > div.cl > div > div:nth-child(2) a')
+    except:
+        print('{} 년도 게임 없습니다.'.format(k))
+        continue
+    for j in get_name:
+        tem.append(j.text)
+        
+game_dic = {}        
+for k in range(len(tem)):
+    game_dic[k+1] = tem[k]        
+        
